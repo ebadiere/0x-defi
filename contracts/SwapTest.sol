@@ -1,9 +1,9 @@
-pragma solidity ^0.7.3;
+pragma solidity ^0.6.6;
 pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./IUniswapV2Router02.sol";
-import "./IWeth.sol";
+import "./interfaces/IUniswapV2Router02.sol";
+import "./interfaces/IWeth.sol";
 
 
 contract SwapTest {
