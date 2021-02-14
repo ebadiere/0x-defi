@@ -1,0 +1,31 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "SwapTest",
+  "sourceName": "contracts/SwapTest.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "uniswapAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "wethAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "fallback"
+    }
+  ],
+  "bytecode": "0x6080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506040516101d23803806101d283398181016040528101906100659190610103565b81600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505050610188565b6000815190506100fd81610171565b92915050565b6000806040838503121561011657600080fd5b6000610124858286016100ee565b9250506020610135858286016100ee565b9150509250929050565b600061014a82610151565b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b61017a8161013f565b811461018557600080fd5b50565b603c806101966000396000f3fe608060405200fea26469706673582212208ff9795f4924deae1b8b9a8fd6aa8031e704ba25caa4456ce72b16c3cc128edf64736f6c63430007030033",
+  "deployedBytecode": "0x608060405200fea26469706673582212208ff9795f4924deae1b8b9a8fd6aa8031e704ba25caa4456ce72b16c3cc128edf64736f6c63430007030033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

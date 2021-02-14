@@ -1,0 +1,181 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Volumes/Seagate/projects/0x-defi/contracts/IUniswapV2Router01.sol": {
+      "lastModificationDate": 1613214960000,
+      "contentHash": "7149014805bc19d085416412661678cb",
+      "sourceName": "contracts/IUniswapV2Router01.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.7.3"
+      ],
+      "artifacts": [
+        "IUniswapV2Router01"
+      ]
+    },
+    "/Volumes/Seagate/projects/0x-defi/contracts/IUniswapV2Router02.sol": {
+      "lastModificationDate": 1613215213000,
+      "contentHash": "679742309ed3a31cbfaee1addb801870",
+      "sourceName": "contracts/IUniswapV2Router02.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IUniswapV2Router01.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.3"
+      ],
+      "artifacts": [
+        "IUniswapV2Router02"
+      ]
+    },
+    "/Volumes/Seagate/projects/0x-defi/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1613214323000,
+      "contentHash": "e0a41531d159d3a32f84b7a3ecf9fabb",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.6.0 <0.8.0"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "/Volumes/Seagate/projects/0x-defi/contracts/IWeth.sol": {
+      "lastModificationDate": 1613214974000,
+      "contentHash": "3fd1d1286ed12076f8e3e098f94d844e",
+      "sourceName": "contracts/IWeth.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.7.3"
+      ],
+      "artifacts": [
+        "IWeth"
+      ]
+    },
+    "/Volumes/Seagate/projects/0x-defi/contracts/SwapTest.sol": {
+      "lastModificationDate": 1613273701000,
+      "contentHash": "bf3a21053efd21f2850bcd0a4411a468",
+      "sourceName": "contracts/SwapTest.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "./IUniswapV2Router02.sol",
+        "./IWeth.sol"
+      ],
+      "versionPragmas": [
+        "^0.7.3"
+      ],
+      "artifacts": [
+        "SwapTest"
+      ]
+    }
+  }
+}
