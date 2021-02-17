@@ -17,6 +17,6 @@
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "start_inspect": "npx --node-arg=--inspect hardhat test --network localhost"
+    "start_inspect": "npx --node-arg=--inspect hardhat test"
   }
 }

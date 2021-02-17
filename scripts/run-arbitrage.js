@@ -1,8 +1,8 @@
 require("dotenv").config();
 const { ethers } = require("ethers");
 
-const abis = require('./abis');
-const { mainnet: addresses } = require('./addresses');
+const abis = require('../abis');
+const { mainnet: addresses } = require('../addresses');
 
 const url = process.env.NODE_URL;
 const provider = new ethers.providers.JsonRpcProvider(url);

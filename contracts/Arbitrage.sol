@@ -66,7 +66,7 @@ contract Arbitrage {
       amountToken, 
       amountRequired, 
       path, 
-      msg.sender, 
+      address(this), 
       deadline
     )[1];
 
