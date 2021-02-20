@@ -11,6 +11,7 @@ const tokensRopsten = require('./tokens-ropsten.json');
 const kyberKovan = require('./kyber-kovan.json');
 const uniswapKovan = require('./uniswap-kovan.json');
 const tokensKovan = require('./tokens-kovan.json');
+const sushiswapKovan = require('./sushiswap-kovan.json');
 
 
 module.exports = {
@@ -28,6 +29,7 @@ module.exports = {
   },
   kovan: {
     kyber: kyberKovan,
+    sushiswap: sushiswapKovan,
     uniswap: uniswapKovan,
     tokens: tokensKovan
   }

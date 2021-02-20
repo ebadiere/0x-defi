@@ -22,13 +22,15 @@ describe("Swap test", function() {
     });
 
 
-    it ("Should send 100 eth to the contract deployed", async function() {
+    it ("Should run a swap on sushiswap", async function() {
+
+        const { ChainId, Fetcher, TokenAmount } = require('@sushiswap/sdk');
 
         const url = "http://localhost:8545";
         const provider = new ethers.providers.JsonRpcProvider(url);
         // const provider = new ethers.providers.getDefaultProvider();
         const SwapTest = await ethers.getContractFactory('SwapTest');
-        const swapTest = await SwapTest.deploy(addresses.uniswap.router, weth);
+        const swapTest = await SwapTest.deploy(addresses.uniswap.factory, addresses.sushiswap.router);
         console.log(`Deployed: address: ${swapTest.address}`);
  
         const accounts = await ethers.getSigners();
@@ -41,19 +43,32 @@ describe("Swap test", function() {
         }
             
         console.log(`Signer: ${signer.address}`);
-        let contractBalance = await provider.getBalance(swapTest.address);
-        console.log(`Contract balance: ${utils.formatEther(contractBalance)}`);
 
         const receipt = await signer.sendTransaction(transaction);
         await receipt.wait();
         console.log(`Transaction successful with hash: ${receipt.hash}`);
 
-        const gasCost = receipt.gasPrice * receipt.gasLimit;
-        console.log(`Tranaction gas cost: ${utils.formatEther(gasCost)}`);
-        
-        contractBalance = await provider.getBalance(swapTest.address);
+        const { amountOutMinHex, path, deadlineHex } = await prepareSwap(Fetcher, ChainId, TokenAmount);
+        await swapTest.exchangeSushiswap(
+            ethers.utils.parseEther("100"),
+            amountOutMinHex,
+            path
+        );
+        console.log(`DEBUG: after call to swp:`);
+
+        let contractBalance = await provider.getBalance(swapTest.address);
         console.log(`Contract balance: ${utils.formatEther(contractBalance)}`);
-        expect(utils.formatEther(contractBalance)).to.equal("100.0");
+
+        // const receipt = await signer.sendTransaction(transaction);
+        // await receipt.wait();
+        // console.log(`Transaction successful with hash: ${receipt.hash}`);
+
+        // const gasCost = receipt.gasPrice * receipt.gasLimit;
+        // console.log(`Tranaction gas cost: ${utils.formatEther(gasCost)}`);
+        
+        // contractBalance = await provider.getBalance(swapTest.address);
+        // console.log(`Contract balance: ${utils.formatEther(contractBalance)}`);
+        // expect(utils.formatEther(contractBalance)).to.equal("100.0");
 
     });
 
@@ -91,7 +106,7 @@ describe("Swap test", function() {
 
     });
 
-    it ("Should be able to execute a trade on the sushiswap contract", async () => {
+    xit ("Should be able to execute a trade on the sushiswap contract", async () => {
 
         const { ChainId, Fetcher, TokenAmount } = require('@sushiswap/sdk');
 
@@ -113,7 +128,8 @@ describe("Swap test", function() {
             path,
             signer.address,
             deadlineHex,{
-                value: ethers.utils.parseEther("100")
+                value: ethers.utils.parseEther("100"),
+
             }
         ).catch(error => {
             console.log(error);
@@ -123,11 +139,6 @@ describe("Swap test", function() {
         const balance = await linkContract.balanceOf(signer.address);
         console.log(`Link: ${balance}`);
    
-
-    });
-
-    it ("Should be able to execute a trade on my contract on sushiswap", async function() {
-
 
     });
 

@@ -24,7 +24,12 @@ module.exports = {
       forking: {
         url: process.env.NODE_URL
       }
-    }
-  }    
+    },
+    kovan: {
+      url: `${process.env.NODE_URL}`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
+    }    
+  },
+  
 };
 
