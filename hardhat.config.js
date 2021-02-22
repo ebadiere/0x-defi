@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require("dotenv").config();
+require("@tenderly/hardhat-tenderly");
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -28,7 +29,11 @@ module.exports = {
     kovan: {
       url: `${process.env.NODE_URL}`,
       accounts: [`0x${process.env.PRIVATE_KEY}`]
-    }    
+    },
+    // tenderly: {
+    //   project: `${process.env.TENDERLY_PROJECT}`,
+    //   username: `${process.env.TENDERLY_USERNAME}`,
+    // },        
   },
   
 };

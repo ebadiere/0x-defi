@@ -7,9 +7,7 @@ const { kovan: addresses } = require('../addresses');
 
 async function main() {
 
-    const url = process.env.NODE_URL;
     const provider = new ethers.providers.getDefaultProvider();
-
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
 
   
@@ -20,11 +18,11 @@ async function main() {
     
     console.log("Account balance:", (await wallet.getBalance()).toString());
   
-
     const Arbitrage = await ethers.getContractFactory("Arbitrage", bytecode, wallet);
     const arbitrage = await Arbitrage.deploy(addresses.uniswap.factory, addresses.sushiswap.router);
   
     console.log("Arbitrage address:", arbitrage.address);
+    console.log("Account balance:", (await wallet.getBalance()).toString());
 
   }
   
