@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const { Contract, providers } = require("ethers");
 const { utils } = require("ethers");
 const { ethers } = require("hardhat");
-const { kovan: addresses } = require('../addresses');
+const { mainnet: addresses } = require('../addresses');
 const abis = require('../abis');
 require("@tenderly/hardhat-tenderly");
 
