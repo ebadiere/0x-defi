@@ -42,11 +42,6 @@ contract Arbitrage {
   ) external {
     address[] memory path = new address[](2);
     uint amountToken = _amount0 == 0 ? _amount1 : _amount0;
-    console.log("DEBUG: in uniswapV2Call");
-    console.log("DEBUG: _amount0: %s", _amount0);
-    console.log("DEBUG: _amount1: %s", _amount1);
-    console.log("DEBUG: amountToken: %s", amountToken);
-    
     
     address token0 = IUniswapV2Pair(msg.sender).token0();
     address token1 = IUniswapV2Pair(msg.sender).token1();
@@ -64,16 +59,12 @@ contract Arbitrage {
     
     token.approve(address(sushiRouter), amountToken);
 
-    console.log("DEBUG: before UniswapV2Library.getAmountsIn");
-    console.log("DEBUG: path[0] %s", path[0]);
-    console.log("DEBUG: path[1] %s", path[1]);
-
     uint amountRequired = UniswapV2Library.getAmountsIn(
       factory, 
       amountToken, 
       path
     )[0];
-    console.log("DEBUG: in sushiRouter.swapExactTokensForTokens");
+  
     uint amountReceived = sushiRouter.swapExactTokensForTokens(
       amountToken, 
       amountRequired, 
@@ -81,7 +72,6 @@ contract Arbitrage {
       msg.sender, 
       deadline
     )[1];
-    console.log("DEBUG: after sushiRounter");
 
     IERC20 otherToken = IERC20(_amount0 == 0 ? token0 : token1);
     otherToken.transfer(msg.sender, amountRequired);

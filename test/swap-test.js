@@ -76,7 +76,9 @@ describe("Swap test", function() {
 
     it ("Should estimate the gas cost of the flashloan and execute trade", async function() {
  
-        const provider = new ethers.providers.getDefaultProvider();
+        // const provider = new ethers.providers.getDefaultProvider();
+        const url = "http://localhost:8545";
+        const provider = new ethers.providers.JsonRpcProvider(url);
 
         const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
     
@@ -91,33 +93,36 @@ describe("Swap test", function() {
         const arbitrage = await Arbitrage.deploy(addresses.uniswap.factory, addresses.sushiswap.router);
  
         console.log(`Contract Address: ${arbitrage.address}`);
-        const accounts = await ethers.getSigners();
-        const signer = accounts[0];
-        arbitrage.connect(signer);
+        // const accounts = await ethers.getSigners();
+        // const signer = accounts[0];
+        // arbitrage.connect(signer);
  
 
-        let estimatedGas = await arbitrage.estimateGas.startArbitrage(
+        let txn = await arbitrage.populateTransaction.startArbitrage(
             addresses.tokens.weth,
             addresses.tokens.link,
             ethers.BigNumber.from(ethers.utils.parseEther("100").toString()).toHexString(),
             ethers.BigNumber.from(ethers.utils.parseEther("0").toString()).toHexString(),{
-                from: signer.address
+                from: wallet.address
             }
         ).catch(error => {
             console.log(error);
         });
 
 
-        console.log(`estimatedGas: ${estimatedGas}`);
-        expect(estimatedGas).to.equal("22128");
+        console.log(`txn: ${JSON.stringify(txn)}`);
+        await provider.estimateGas(txn).then(function(estimate) {
+            console.log(`estimate: ${estimate}`);
+        });
+        // expect(estimatedGas).to.equal("22128");
 
-         // update to set gas limit then upload to tenderly
-        console.log(`DEBUG: estimateGas: ${Math.trunc(estimatedGas * 110 / 100)}`);
-        const gasIncreased = Math.trunc(estimatedGas * 160 / 100);
-        console.log('DEBUG: Gas in wei: ${}')
+        //  // update to set gas limit then upload to tenderly
+        // console.log(`DEBUG: estimateGas: ${Math.trunc(estimatedGas * 110 / 100)}`);
+        // const gasIncreased = Math.trunc(estimatedGas * 160 / 100);
+        // console.log('DEBUG: Gas in wei: ${}')
         const gasPrice = await provider.getGasPrice();
-        const inWei = ethers.utils.parseUnits(gasIncreased.toString(), 'gwei');
-        console.log(`DEBUG: gasPrice: ${inWei}`);
+        // const inWei = ethers.utils.parseUnits(gasIncreased.toString(), 'gwei');
+        // console.log(`DEBUG: gasPrice: ${inWei}`);
 
         const tx = await arbitrage.startArbitrage(
             addresses.tokens.weth,
@@ -125,13 +130,17 @@ describe("Swap test", function() {
             ethers.BigNumber.from(ethers.utils.parseEther("100").toString()).toHexString(),
             ethers.BigNumber.from(ethers.utils.parseEther("0").toString()).toHexString(),{
                 gasLimit: 1000000,
-                gasPrice: gasPrice
+                gasPrice: gasPrice,
+                from: wallet.address
             }
         ).catch(error => {
             console.log(error);
         });
 
-        console.log(`Transaction: ${tx.hash}`);
+        // console.log(`Transaction: ${tx.hash}`);
+        const linkContract = new Contract(addresses.tokens.link, abis.tokens.erc20, wallet);
+        const balance = await linkContract.balanceOf(wallet.address);
+        console.log(`Link: ${balance}`);       
 
     });
 

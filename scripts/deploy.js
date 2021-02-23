@@ -1,9 +1,9 @@
 const { ethers } = require("hardhat");
 
 require("dotenv").config();
-const { bytecode } = require("../artifacts/contracts/Arbitrage.sol/Arbitrage.json")
 
-const { kovan: addresses } = require('../addresses');
+
+const { mainnet: addresses } = require('../addresses');
 
 async function main() {
 
@@ -15,11 +15,19 @@ async function main() {
       "Deploying contracts with the account:",
       wallet.address
     );
+
+    // const SushiSwapRouter = await ethers.getContractFactory("")
     
     console.log("Account balance:", (await wallet.getBalance()).toString());
+
+    let { bytecode } = require("../artifacts/contracts/uniswapv2/UniswapV2Router02.sol/UniswapV2Router02.json");
+
+    const SushiswapV2Router02 = await ethers.getContractFactory("UniswapV2Router02", bytecode, wallet);
+    const sushiRouter = SushiswapV2Router02.attach(addresses.sushiswap.router);
   
+    bytecode = require("../artifacts/contracts/Arbitrage.sol/Arbitrage.json")
     const Arbitrage = await ethers.getContractFactory("Arbitrage", bytecode, wallet);
-    const arbitrage = await Arbitrage.deploy(addresses.uniswap.factory, addresses.sushiswap.router);
+    const arbitrage = await Arbitrage.deploy(addresses.uniswap.factory, sushiRouter.address);
   
     console.log("Arbitrage address:", arbitrage.address);
     console.log("Account balance:", (await wallet.getBalance()).toString());
