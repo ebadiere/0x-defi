@@ -24,6 +24,7 @@ contract Arbitrage {
     uint amount0, 
     uint amount1
   ) external {
+    console.log("DEBUG: in start arbitrage");
     address pairAddress = IUniswapV2Factory(factory).getPair(token0, token1);
     require(pairAddress != address(0), 'This pool does not exist');
     IUniswapV2Pair(pairAddress).swap(
@@ -64,7 +65,7 @@ contract Arbitrage {
       amountToken, 
       path
     )[0];
-  
+    console.log("DEBUG: Got to just before suspect");
     uint amountReceived = sushiRouter.swapExactTokensForTokens(
       amountToken, 
       amountRequired, 

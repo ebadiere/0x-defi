@@ -77,8 +77,11 @@ describe("Swap test", function() {
     it ("Should estimate the gas cost of the flashloan and execute trade", async function() {
  
         // const provider = new ethers.providers.getDefaultProvider();
-        const url = "http://localhost:8545";
-        const provider = new ethers.providers.JsonRpcProvider(url);
+        const url = `${process.env.NODE_URL}`;
+        // const provider = new ethers.providers.JsonRpcProvider(url);
+        const provider = new ethers.providers.AlchemyWebSocketProvider("kovan", process.env.KEY);
+        const network = await provider.getNetwork();
+        console.log(`Provider: ${network.name}`);
 
         const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
     
@@ -102,9 +105,7 @@ describe("Swap test", function() {
             addresses.tokens.weth,
             addresses.tokens.link,
             ethers.BigNumber.from(ethers.utils.parseEther("100").toString()).toHexString(),
-            ethers.BigNumber.from(ethers.utils.parseEther("0").toString()).toHexString(),{
-                from: wallet.address
-            }
+            ethers.BigNumber.from(ethers.utils.parseEther("0").toString()).toHexString()
         ).catch(error => {
             console.log(error);
         });
@@ -131,7 +132,6 @@ describe("Swap test", function() {
             ethers.BigNumber.from(ethers.utils.parseEther("0").toString()).toHexString(),{
                 gasLimit: 1000000,
                 gasPrice: gasPrice,
-                from: wallet.address
             }
         ).catch(error => {
             console.log(error);
@@ -140,7 +140,9 @@ describe("Swap test", function() {
         // console.log(`Transaction: ${tx.hash}`);
         const linkContract = new Contract(addresses.tokens.link, abis.tokens.erc20, wallet);
         const balance = await linkContract.balanceOf(wallet.address);
-        console.log(`Link: ${balance}`);       
+        console.log(`Link: ${balance}`);     
+        const walletBalance = await wallet.getBalance(); 
+        console.log(`Wallet balance: ${walletBalance}`) 
 
     });
 
