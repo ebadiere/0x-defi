@@ -18,6 +18,7 @@ contract Arbitrage {
     sushiRouter = IUniswapV2Router02(_sushiRouter);
   }
 
+
   function startArbitrage(
     address token0, 
     address token1, 
@@ -59,6 +60,8 @@ contract Arbitrage {
     IERC20 token = IERC20(_amount0 == 0 ? token1 : token0);
     
     token.approve(address(sushiRouter), amountToken);
+
+    console.log("DEBUG: Before getAmountsIn, %s", amountToken);
 
     uint amountRequired = UniswapV2Library.getAmountsIn(
       factory, 
